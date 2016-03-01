@@ -30,10 +30,23 @@ data = [('first', '0', '600', '900', '50', '100', '0.02'),
 sorted_dict = {}
 
 for row in data:
-    if row[0] in sorted_dict:
-        sorted_dict[row[0]].update({row[1]: row[2:]})
-    else:
+    if row[0] not in sorted_dict:
         sorted_dict[row[0]] = {}
-        sorted_dict[row[0]].update({row[1]: row[2:]})
+    sorted_dict[row[0]][row[1]] = row[2:]
 
 pprint(sorted_dict)
+
+
+# Another method
+"""
+from collections import defaultdict
+# whenever a key doesn't exist yet, it will be created,
+# with the value being a new empty dictionary
+sorted_dict = defaultdict(lambda: {})
+
+# this works whether or not data[key] has ever been assigned to
+for row in data:
+    sorted_dict[row[0]][row[1]] = row[2:]
+
+pprint(sorted_dict)
+"""

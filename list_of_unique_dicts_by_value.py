@@ -23,7 +23,7 @@ sorted_list = {v['id']: v for v in list_of_dict}.values()
 print "sorted list is " sorted_list
 
 """
-If you have two lists and you want to merge those lists and sort with different keys
+If you have two lists and you want to merge those lists and uniquify with different keys
 """
 
 L1 = [
