@@ -48,8 +48,8 @@ class LinkedList:
 
         return "LinkedList(" + repr(l) + ")"
 
-    def reverse(self):
-        l = []
+    def reversed(self):
+        l = LinkedList()
 
         current_node = self.last
 
@@ -57,7 +57,53 @@ class LinkedList:
             l.append(current_node.value)
             current_node = current_node.prev
 
-        return "LinkedList(" + repr(l) + ")"
+        return l
+
+    def reverse(self):
+        # in-place
+        self.first, self.last = self.last, self.first
+
+        current_node = self.first
+
+        while current_node:
+            current_node.next, current_node.prev = current_node.prev, current_node.next
+            current_node = current_node.next
+
+    def delete_node(self, node):
+        prev = node.prev # None
+        next = node.next # [7]
+
+        if prev:
+            prev.next = next
+        else:
+            # node is the first node of the list
+            self.first = next
+
+        if next:
+            next.prev = prev
+        else:
+            self.last = prev
+
+    # remove all elements for which func returns true
+    def remove_where(self, func):
+        current_node = self.first
+
+        while current_node:
+            if func(current_node.value):
+                self.delete_node(current_node)
+
+            current_node = current_node.next
+
+    def insert_before(self, old_node, new_value):
+        new_node = LinkedListNode(new_value, old_node.prev, old_node)
+        prev = old_node.prev
+
+        if prev:
+            prev.next = new_node
+        else:
+            self.first = new_node
+
+        old_node.prev = new_node
 
 
 l = LinkedList()
@@ -68,4 +114,17 @@ l.append(1)
 l.prepend("hello")
 l.prepend(7)
 
-# Result will be [7,"hello",0,15,"world",1]
+# LinkedList([31, 7, 0, 15, 1, 8, 100])
+
+# is_even = lambda n: n % 2 == 0
+# l.remove_where(is_even) #
+
+# LinkedList([31, 7, 15, 1])
+
+# print l
+
+# l.reverse()
+
+# print l # <- reversed list
+
+# [7,"hello",0,15,"world",1]
