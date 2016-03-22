@@ -53,8 +53,10 @@ class OperationNode(Node):
         """Evaluate tree expression recursively."""
         operator_func = self.operations[self.data]
 
-        return operator_func(self.left.evaluate(**kwargs), self.right.evaluate(**kwargs))
+        left_value = self.left.evaluate(**kwargs)
+        right_value = self.right.evaluate(**kwargs)
 
+        return operator_func(left_value, right_value)
 
 class ConstantNode(Node):
     """Creates a node without children."""
@@ -77,6 +79,14 @@ class VariableNode(Node):
 
     def evaluate(self, **kwargs):
         return kwargs[self.data]
+
+
+class NegationNode(OperationNode):
+    """
+    Negates any variable given to it.
+    """
+    def __init__(self, operand):
+        super(NegationNode, self).__init__(ConstantNode(0), operand, "-")
 
 # h = ConstantNode(7)
 h = VariableNode("x")

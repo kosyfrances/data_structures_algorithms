@@ -98,7 +98,7 @@ for i in range(0, test_case):
     for node in nodes:
         print "Node", node.number, "has distance", node.distance_from_start,
         "from the start"
-        if node.distance_from_start == 6 or node.distance_from_start == -1:
+        if node.distance_from_start != 0:
             print node.distance_from_start,
 
 
