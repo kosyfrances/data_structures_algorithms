@@ -14,13 +14,12 @@ Note 2: The length of each edge in the graph is 66 units.
 
 test_case = int(raw_input())
 
-data = []
-
 for i in xrange(0, test_case):
+    data = []
     MN = (map(int, raw_input().split()))
     data.append(MN)
-    N = MN[1]
-    for i in xrange(0, N):
+    M = MN[1]
+    for i in xrange(0, M):
         data.append((map(int, raw_input().split())))
     data.append((map(int, raw_input().split())))
 
@@ -63,8 +62,6 @@ for i in xrange(0, test_case):
                 node_queue.insert(0, neighbour)
 
     for node in nodes:
-        if node.distance_from_start == 6 or node.distance_from_start == -1:
+        if node.distance_from_start != 0:
             print node.distance_from_start,
     print
-
-    data = []
